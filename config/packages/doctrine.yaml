@@ -1,0 +1,24 @@
+doctrine:
+    dbal:
+        driver: 'pdo_mysql'
+        server_version: '10.4.12-MariaDB'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+        url: '%env(resolve:DATABASE_URL)%'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            link_embeddables:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Link/config/orm/embeddable'
+                prefix: 'App\Model\Link\ValueObject'
+            link_entities:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Link/config/orm/entity'
+                prefix: 'App\Model\Link\Entity'

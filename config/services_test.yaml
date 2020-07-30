@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        public: true
+    App\Tests\Infrastructure\Link\Fixture\LinkFixture:
+        tags:
+            - { "name": "doctrine.fixture.orm" }
+
+    Test.LinkRepository: '@app.link.link_repository'
+    Test.LinkFactory: '@app.link.link_factory'
+    Test.BaseConverter: '@app.link.base_converter'

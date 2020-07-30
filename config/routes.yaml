@@ -1,0 +1,18 @@
+index:
+    path: /
+    controller: App\Http\Action\Home
+
+react_routing:
+  path: /{routing}
+  controller: App\Http\Action\Home
+  defaults:
+    routing: null
+
+api_create_shortened_link:
+  path: /api/link
+  methods: ['POST']
+  controller: App\Http\Action\CreateLink
+
+go_to_link:
+  path: /go/{_hash}
+  controller: App\Http\Action\RedirectToLink

@@ -1,0 +1,37 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+
+    app.link.link_repository: '@App\Infrastructure\Link\Repository\LinkRepository'
+    app.link.link_factory: '@App\Application\Link\LinkFactory'
+    app.link.base_converter: '@App\Application\Link\BaseConverter'
+
+    App\Infrastructure\Link\Repository\LinkRepository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - App\Model\Link\Entity\Link
+
+    App\Application\Link\LinkFactory:
+        arguments: ['@app.link.base_converter']
+
+    App\Http\Action\Home:
+        public: true
+        calls:
+            - [setContainer, ['@service_container']]
+
+    App\Http\Action\CreateLink:
+        public: true
+        arguments: ['@app.link.link_repository', '@app.link.link_factory']
+        calls:
+            - [setContainer, ['@service_container']]
+
+              
+    App\Http\Action\RedirectToLink:
+        public: true
+        arguments: ['@app.link.link_repository']
+        calls:
+            - [setContainer, ['@service_container']]
+
+    App\Application\Link\BaseConverter: ~
